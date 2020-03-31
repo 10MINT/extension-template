@@ -6,7 +6,7 @@
   <property name="ExternalComponent.dir" location="build/externalComponents" />
   <property name="ExternalComponent-class.dir" location="build/externalComponents-classes" />
 
-  <target name="all" depends="extensions">
+  <target name="all" depends="clean, extensions">
   </target>
 
   <target name="clean">
@@ -30,6 +30,7 @@
       <classpath>
         <pathelement location="lib/appinventor/AndroidRuntime.jar" />
         <pathelement location="lib/appinventor/AnnotationProcessors.jar" />
+        <pathelement location="lib/appinventor/kawa-1.10.jar" />
         <fileset dir="lib/android">
           <include name="*.jar" />
         </fileset>
@@ -96,6 +97,10 @@
 
   <target name="jarExtension">
     <basename property="extensionClassFolder" file="${extension}" />
+    <!-- fixed in https://github.com/mit-cml/extension-template/commit/0c88c7ca10460aea5759bffc7d87021b56f49d88 -->
+    <!-- <copy todir="${ExternalComponent-class.dir}/${extensionClassFolder}" >  
+      <fileset dir="${AndroidRuntime-classes.dir}" includes="**/*.class"/>  
+    </copy>  -->
     <jar destfile="${ExternalComponent-class.dir}/${extensionClassFolder}.jar"
          basedir="${ExternalComponent-class.dir}/${extensionClassFolder}"
          includes="**/*.class"
